@@ -25,6 +25,9 @@ class TokenValidationMiddleware:
         self.circuit_breaker = CircuitBreaker(fail_max=5, reset_timeout=60)
 
     def __call__(self, request):
+        if not request.path.startswith("/api/otp/"):
+            return self.get_response(request)
+        
         auth_header = request.headers.get("Authorization")
         if not auth_header:
             return JsonResponse(
