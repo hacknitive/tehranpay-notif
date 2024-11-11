@@ -1,5 +1,8 @@
 # Done 
-- [x] Unit test
+- [x] 
 ----
 # Undone
 - Add Documentation
+- Unit test
+- Logging
+- Better Exception Handling

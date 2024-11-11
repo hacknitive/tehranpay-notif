@@ -60,18 +60,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "notification_service.wsgi.application"
 
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": env("DB_NAME"),  # If needed
-#         "USER": env("DB_USER"),  # If needed
-#         "PASSWORD": env("DB_PASSWORD"),  # If needed
-#         "HOST": env("DB_HOST"),  # If needed
-#         "PORT": env("DB_PORT"),  # If needed
-#     }
-# }
-
 # Redis Configuration for OTP storage and caching token validation
 REDIS_HOST = env("REDIS_HOST")
 REDIS_PORT = env("REDIS_PORT")
@@ -132,7 +120,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-
+# Token validation
 TOKEN_VALIDATION_URL = env('TOKEN_VALIDATION_URL')
 
 

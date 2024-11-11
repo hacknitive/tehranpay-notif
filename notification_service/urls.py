@@ -11,7 +11,6 @@ schema_view = get_schema_view(
         title="Tehran Payment - Code Challenge - Notification Service",
         default_version='v1',
         description="API documentation for 'Tehran Payment - Code Challenge - Notification Service' - Prepared By Reza Aghamohammadi",
-        # terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="hacknitive@gmail.com"),
         license=openapi.License(name="MIT License"),
     ),

@@ -51,7 +51,7 @@ services:
     image: docker.arvancloud.ir/redis:6-alpine
     command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} --port 6380
     ports:
-      - "6380:6380"  # Host port 6380 to container port 6379 to avoid conflict with Authentication Service's Redis
+      - "6380:6380"
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     volumes:
