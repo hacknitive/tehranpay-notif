@@ -133,3 +133,4 @@ note.txt
 .env*
 old
 automatic_git_status_add_commit_push.sh
+staticfiles/
