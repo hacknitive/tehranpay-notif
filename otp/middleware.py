@@ -64,7 +64,6 @@ class TokenValidationMiddleware:
             if response.status_code == 200 and jsoned_response["data"]["is_valid"]:
                 return self.get_response(request)
             else:
-                print(str(response.text))
                 return JsonResponse(
                     {
                         "statusCode": 401,
@@ -106,7 +105,6 @@ class TokenValidationMiddleware:
                 status=401,
             )
         except Exception:
-            print(str(response.text))
             # TODO: Logging
             print_exc()
             return JsonResponse(
