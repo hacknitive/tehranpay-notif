@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  notification_service:
+    build: 
+      context: .           
+      dockerfile: Dockerfile-api
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8001:8001"
+    env_file:
+      - .env
+    depends_on:
+      - notifredis
+      - rabbitmq
+    restart: unless-stopped
+    networks:
+      - code_challenge
+
+  celery_worker:
+    build: 
+      context: . 
+      dockerfile: Dockerfile-worker
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - notification_service
+      - rabbitmq
+    restart: unless-stopped
+    networks:
+      - code_challenge
+
+  rabbitmq:
+    image: docker.arvancloud.ir/rabbitmq:3-management
+    ports:
+      - "5672:5672"    # RabbitMQ main port
+      - "15672:15672"  # RabbitMQ management UI
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    restart: unless-stopped
+    networks:
+      - code_challenge
+
+  notifredis:
+    image: docker.arvancloud.ir/redis:6-alpine
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD} --port 6380
+    ports:
+      - "6380:6380"  # Host port 6380 to container port 6379 to avoid conflict with Authentication Service's Redis
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - notif_redis_data:/data
+    restart: unless-stopped
+    networks:
+      - code_challenge
+
+volumes:
+  rabbitmq_data:
+  notif_redis_data:
+
+networks:
+  code_challenge:
+    external: true
